@@ -9,8 +9,14 @@ $(document).ready(function() {	// waits for whole page to load
 
             if (task != '') {  //only perform if user entered input
 
+                function getTaskRow(spanElt) {
+                    return spanElt.parentNode.parentNode;
+                }
+
                 // func to run when tasks are completed
                 var taskDone = function () {
+                    taskRow = $(getTaskRow(this));
+                    $.post('/getitdone_django/complete', {'id': taskRow.attr('data-task-id')});
                     $('#done ul').append(this.parentNode.parentNode);
                         /* this will refer to the obj on which .click is called,
                            a glyphicon span element whose parent node li contains
@@ -21,6 +27,7 @@ $(document).ready(function() {	// waits for whole page to load
 
                 // func that puts the task back on the #list
                 var taskRepeat = function () {
+                    taskRow = $(getTaskRow(this));
                     $('#list ul').append(this.parentNode.parentNode);
                     $('.glyphicon-repeat', '#list').remove();
                     $(infoDiv).append(doneIcon.click(taskDone));
@@ -28,6 +35,8 @@ $(document).ready(function() {	// waits for whole page to load
 
                 // func that removes tasks
                 var taskDelete = function () {
+                    taskRow = $(getTaskRow(this));
+                    $.post('/getitdone_django/delete', { 'id': taskRow.attr('data-task-id') });
                     $(this.parentNode.parentNode).remove();
                 };
 
@@ -64,7 +73,7 @@ $(document).ready(function() {	// waits for whole page to load
                 infoDiv.append(time, date, deleteIcon, doneIcon);
                 newTask.append(taskDiv, infoDiv);
 
-                $('#list ul').append(newTask);  //add newTask
+                $('#list ul').append(newTask).post('getitdone_djando/new_task', { 'title': task });  //add newTask
             }
 
             $('#taskEntry').val('');

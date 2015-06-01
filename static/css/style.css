@@ -51,9 +51,9 @@ h2 {
 }
 
 .time, .date {
-    font-size: .75em;
+    font-size: .6em;
     vertical-align: text-bottom;
-    line-height: 2.5em;
+    line-height: 2.75em;
 }
 
 p {
