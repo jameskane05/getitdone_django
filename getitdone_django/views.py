@@ -12,7 +12,7 @@ def index(request):
 def new_task(request):
     title = request.POST.get('title')
     task = Task.objects.create(title=title)
-    return JsonResponse({ 'id': task.id, 'title': task.title, 'completed': task.completed, 'created': task.created})
+    return JsonResponse({ 'id': task.id, 'title': title, 'completed': task.completed, 'created': task.created})
 
 @csrf_exempt
 def complete(request):
@@ -27,7 +27,15 @@ def delete(request):
     id = getTaskIdFromRequest(request)
     task = Task.objects.get(id=id)
     task.delete()
-    return JsonResponse({ 'id': task.id, 'deleted': True })
+    return JsonResponse({ 'id': id, 'deleted': True })
+
+@csrf_exempt
+def repeat(request):
+    id = getTaskIdFromRequest(request)
+    task = Task.objects.get(id=id)
+    task.completed = False
+    task.save()
+    return JsonResponse({ 'id': task.id, 'title': task.title, 'completed': task.completed, 'created': task.created})
 
 #using Chris' getTaskId function here for convenience
 def getTaskIdFromRequest(request):

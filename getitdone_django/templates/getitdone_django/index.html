@@ -24,13 +24,50 @@
     <h2>Tasks</h2>
     <div id="list">
         <ul class="container">
+
             <!-- new tasks entered will go here! -->
+
+            {% if tasks|length == 0 %}
+                <li id="no-tasks-msg">No tasks</li>
+            {% endif %}
+
+            {%  for task in tasks %}
+                {% if not task.completed %}
+                    <li data-task-id="{{ task.id }}" class="row">
+                        <div class='task-name taskDiv col-lg-6'>{{ task.title }}</div>
+                        <div class='task-name infoDiv col-lg-6'>
+                            <div class="col-sm-4 date">{{ task.created }}</div>
+                            <div class="col-sm-4 glyphicon glyphicon-trash"></div>
+                            <div class="col-sm-4 glyphicon glyphicon-ok"></div>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
         </ul>
     </div>
     <h2>Completed</h2>
     <div id="done">
         <ul class="container">
+
             <!-- new tasks entered will go here! -->
+
+            {% if tasks|length == 0 %}
+                <li id="no-tasks-msg">No tasks</li>
+            {% endif %}
+
+            {%  for task in tasks %}
+                {% if task.completed %}
+                    <li class="row" data-task-id="{{ task.id }}">
+                        <div class='task-name taskDiv col-lg-6'>{{ task.title }}</div>
+                        <div class='task-name infoDiv col-lg-6'>
+                            <div class="col-sm-4 date">{{ task.created }}</div>
+                            <div class="col-sm-4 glyphicon glyphicon-trash"></div>
+                            <div class="col-sm-4 glyphicon glyphicon-repeat"></div>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
         </ul>
     </div>
 </body>

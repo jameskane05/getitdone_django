@@ -92,3 +92,12 @@ div.col-sm-3.date {
 .row {
     overflow: hidden;
 }
+
+li#no-tasks-msg {
+    font-style: italic;
+    color: #717171;
+    display: none;
+}
+li#no-tasks-msg:only-child {
+    display: table-row;
+}
