@@ -46,7 +46,6 @@ var taskDelete = function () {
 
 // main func for registering new tasks
 var regTask = function (task) {
-    //glyphicon HTML and .click callback funcs
     $.post('getitdone_django/new_task', {'title': task})
         .done(function(data) {
             var deleteIcon = $('<div class="col-sm-4 glyphicon glyphicon-trash"></div>').click(taskDelete);
@@ -98,7 +97,6 @@ $(document).ready(function() {	// waits for whole page to load
 });
 
 /*          EXTRA CODE TO DETERMINE AND FORMAT EXACT TIME THROUGH JAVASCRIPT
-*
 *
             //determine AM or PM, store as strings
             var amPm;
